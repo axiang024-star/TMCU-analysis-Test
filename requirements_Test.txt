@@ -1,5 +1,0 @@
-streamlit
-cantools
-plotly
-asammdf
-pandas
