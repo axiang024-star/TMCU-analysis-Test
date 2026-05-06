@@ -7,25 +7,21 @@ import io
 import sys
 import streamlit.components.v1 as components
 
-# ===================== 0. 依赖库自动检测与静默安装 (方法一) =====================
+# ===================== 0. 环境检测补丁 =====================
+# 仅做导入检测，不执行自动安装（避免权限报错）
 try:
     from asammdf import MDF
     ASAMMDF_INSTALLED = True
-except ImportError:
-    # 如果导入失败，自动在后台安装所需的依赖包
-    try:
-        import subprocess
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "asammdf", "pandas"])
-        from asammdf import MDF
-        ASAMMDF_INSTALLED = True
-    except Exception as e:
-        ASAMMDF_INSTALLED = False
+    ASAMMDF_ERROR = ""
+except ImportError as e:
+    ASAMMDF_INSTALLED = False
+    ASAMMDF_ERROR = str(e)
 
 # ===================== 1. 核心配置与移动端 UI 增强 =====================
 DBC_FILENAME = 'Geely_TMCU_V1.1_20250513_PrivateCAN_10.dbc'
-st.set_page_config(page_title="HVFAN 报文分析系统", layout="wide")
+st.set_page_config(page_title="HVFAN 移动端分析系统", layout="wide")
 
-# 深度 CSS 补丁：保留原有的移动端点击热区与布局优化
+# 还原源码所有 CSS 样式
 st.markdown("""
     <style>
     .stFileUploader { position: relative; z-index: 1000 !important; }
@@ -47,7 +43,7 @@ st.markdown("""
 
 @st.cache_resource
 def load_dbc_engine(uploaded_file_content=None):
-    """缓存 DBC 加载"""
+    """还原：支持内建 DBC 和上传 DBC"""
     try:
         if uploaded_file_content is not None:
             dbc_text = uploaded_file_content.decode('gbk', errors='ignore')
@@ -59,29 +55,23 @@ def load_dbc_engine(uploaded_file_content=None):
     return None
 
 def process_mf4(file_content, dbc_path):
-    """
-    新增功能：MF4 报文解析逻辑
-    """
+    """还原：MF4 深度解析逻辑"""
     if not ASAMMDF_INSTALLED:
-        st.error("后台自动安装 asammdf 失败，请尝试手动运行: pip install asammdf")
+        st.error(f"❌ 解析失败：环境缺少 asammdf 库或 C++ 运行库。错误详情: {ASAMMDF_ERROR}")
         return {}
     
     data_dict = {}
     tmp_mf4 = "temp_log.mf4"
-    # 将内存中的二进制流写入临时文件以供 asammdf 读取
     with open(tmp_mf4, "wb") as f:
         f.write(file_content)
     
     try:
         mdf = MDF(tmp_mf4)
-        # 提取总线日志，根据 DBC 自动解析所有 CAN 信号
         decoded = mdf.extract_bus_logging(database_files={'CAN': [(dbc_path, 0)]})
         df = decoded.to_dataframe()
         
         for col in df.columns:
-            # 过滤系统列
             if ' ' in col or col.startswith('__'): continue
-            
             sig_data = decoded.get(col)
             if sig_data is not None:
                 data_dict[col] = {
@@ -98,9 +88,7 @@ def process_mf4(file_content, dbc_path):
     return data_dict
 
 def process_asc(file_content, db):
-    """
-    保留原有功能：ASC 报文解析逻辑（含 J1939 ID 模糊匹配）
-    """
+    """还原：支持 J1939 模糊匹配的 ASC 解析"""
     data_dict = {}
     frame_re = re.compile(
         r'^\s*(?P<time>\d+\.\d+)\s+(?P<channel>\d+)\s+(?P<id>[0-9A-Fa-f]+)x\s+(?:Rx|Tx)\s+d\s+(?P<dlc>\d+)\s+(?P<data>(?:[0-9A-Fa-f]{2}\s*)+)', 
@@ -124,7 +112,6 @@ def process_asc(file_content, db):
                 hex_data = m.group('data').strip().replace(' ', '')
                 raw_payload = bytearray.fromhex(hex_data)
                 
-                # ID 模糊匹配逻辑
                 msg = None
                 for search_id in [raw_id, raw_id & 0x1FFFFFFF, raw_id & 0x00FFFFFF]:
                     try:
@@ -132,26 +119,18 @@ def process_asc(file_content, db):
                         if msg: break
                     except KeyError: continue
                 
-                if not msg: continue
-                if len(raw_payload) < msg.length:
-                    raw_payload = raw_payload.ljust(msg.length, b'\x00')
-
-                decoded = msg.decode(raw_payload, decode_choices=False)
-                for s_n, s_v in decoded.items():
-                    if not isinstance(s_v, (int, float)):
-                        try: s_v = float(s_v)
-                        except: continue
-
-                    full_n = f"{msg.name}::{s_n}"
-                    if full_n not in data_dict:
-                        sig_obj = msg.get_signal_by_name(s_n)
-                        data_dict[full_n] = {
-                            'x': [], 'y': [], 
-                            'unit': sig_obj.unit if sig_obj.unit else "",
-                            'label': s_n
-                        }
-                    data_dict[full_n]['x'].append(t)
-                    data_dict[full_n]['y'].append(s_v)
+                if msg:
+                    if len(raw_payload) < msg.length:
+                        raw_payload = raw_payload.ljust(msg.length, b'\x00')
+                    decoded = msg.decode(raw_payload, decode_choices=False)
+                    for s_n, s_v in decoded.items():
+                        if not isinstance(s_v, (int, float)): continue
+                        full_n = f"{msg.name}::{s_n}"
+                        if full_n not in data_dict:
+                            sig_obj = msg.get_signal_by_name(s_n)
+                            data_dict[full_n] = {'x': [], 'y': [], 'unit': sig_obj.unit or "", 'label': s_n}
+                        data_dict[full_n]['x'].append(t)
+                        data_dict[full_n]['y'].append(s_v)
             except: continue
     return data_dict
 
@@ -159,50 +138,40 @@ def process_asc(file_content, db):
 
 st.title("🚗 HVFAN 移动端分析系统")
 
-# 侧边栏：如果自动安装仍失败，将异常原因打印在侧边栏便于排查
 with st.sidebar:
     st.header("⚙️ 协议库配置")
     if not ASAMMDF_INSTALLED:
-        st.error("⚠️ asammdf 依赖库加载失败，请检查 C++ 运行库环境。")
+        st.error(f"⚠️ asammdf 依赖库加载失败")
+        st.caption(f"错误原因: {ASAMMDF_ERROR}")
+        st.info("请在终端运行: pip install asammdf pandas --user")
         
     uploaded_dbc = st.file_uploader("更新 DBC 文件", type=None, key="mobile_dbc_uploader")
-    
-    # 持久化 DBC 路径供 MF4 解析器读取
     current_dbc_path = DBC_FILENAME
     if uploaded_dbc:
         with open("temp_proto.dbc", "wb") as f:
             f.write(uploaded_dbc.getvalue())
         current_dbc_path = "temp_proto.dbc"
 
-# 加载协议引擎
-dbc_bytes = uploaded_dbc.read() if uploaded_dbc else None
+# 还原：DBC 逻辑判断
+dbc_bytes = uploaded_dbc.getvalue() if uploaded_dbc else None
 db = load_dbc_engine(dbc_bytes)
 
 if not db:
     st.warning("⚠️ 协议库未就绪。请确认侧边栏 DBC 状态。")
     st.stop()
 
-# 报文上传：新增支持 .mf4 / .mdf 后缀
-uploaded_file = st.file_uploader(
-    "📂 上传报文 (支持 .asc / .mf4 / .txt)", 
-    type=None, 
-    key="mobile_data_uploader"
-)
+uploaded_file = st.file_uploader("📂 上传报文 (支持 .asc / .mf4 / .txt)", type=None, key="mobile_data_uploader")
 
 if uploaded_file is not None:
-    # 状态持久化，避免切换应用时数据丢失
     file_key = f"cache_{uploaded_file.name}_{uploaded_file.size}"
     if 'data_cache' not in st.session_state or st.session_state.get('current_file_id') != file_key:
         with st.spinner('⏳ 正在解析大规模报文...'):
             suffix = uploaded_file.name.split('.')[-1].lower()
             content = uploaded_file.read()
-            
-            # 自动识别格式并分流
             if suffix in ['mf4', 'mdf']:
                 st.session_state.data_cache = process_mf4(content, current_dbc_path)
             else:
                 st.session_state.data_cache = process_asc(content, db)
-                
             st.session_state.current_file_id = file_key
     
     full_data = st.session_state.data_cache
@@ -212,9 +181,10 @@ if uploaded_file is not None:
     else:
         st.success(f"📈 成功识别 {len(full_data)} 个信号")
 
+        # 还原：所有交互控制开关
         with st.expander("🛠️ 信号过滤与交互设置", expanded=True):
             all_sigs = sorted(full_data.keys())
-            selected_sigs = st.multiselect("选择分析信号 (支持搜索)", all_sigs, default=all_sigs[:1])
+            selected_sigs = st.multiselect("选择分析信号 (支持搜索)", all_sigs, default=all_sigs[:1] if all_sigs else [])
             
             c1, c2 = st.columns(2)
             with c1: sync_on = st.toggle("🔗 同步缩放", value=True)
@@ -226,7 +196,7 @@ if uploaded_file is not None:
                 d = full_data[name]
                 x, y = d['x'], d['y']
                 
-                # 移动端性能优化：抽稀逻辑
+                # 还原：大数据量自动抽稀优化
                 if len(x) > 15000:
                     step = len(x) // 15000
                     x, y = x[::step], y[::step]
@@ -238,13 +208,14 @@ if uploaded_file is not None:
                     "y": y
                 })
 
-            # Plotly 渲染引擎：保留同步缩放与测量功能
+            # 还原：Plotly 渲染引擎（含同步缩放与测量逻辑）
             js_code = f"""
             <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
             <div id="chart-box"></div>
             <script>
                 const dataSet = {json.dumps(charts_json)};
                 const sync = {str(sync_on).lower()};
+                const showMeasure = {str(show_measure).lower()};
                 const container = document.getElementById('chart-box');
                 const chartIds = [];
                 let relayouting = false;
@@ -261,7 +232,7 @@ if uploaded_file is not None:
                         title: {{ text: data.title, font: {{ size: 14 }} }},
                         margin: {{ l: 50, r: 20, t: 40, b: 40 }},
                         template: 'plotly_white',
-                        hovermode: "{'x unified' if show_measure else 'closest'}",
+                        hovermode: showMeasure ? "x unified" : "closest",
                         xaxis: {{ showspikes: true, spikemode: 'across', spikedash: 'dot', spikecolor: '#999' }},
                         yaxis: {{ autorange: true }}
                     }};
