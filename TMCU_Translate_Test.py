@@ -5,23 +5,31 @@ import os
 import json
 import io
 import sys
+import subprocess
 import streamlit.components.v1 as components
 
-# ===================== 0. 环境检测补丁 =====================
-# 仅做导入检测，不执行自动安装（避免权限报错）
-try:
-    from asammdf import MDF
-    ASAMMDF_INSTALLED = True
-    ASAMMDF_ERROR = ""
-except ImportError as e:
-    ASAMMDF_INSTALLED = False
-    ASAMMDF_ERROR = str(e)
+# ===================== 0. 依赖库自动修复与加载 =====================
+def ensure_dependencies():
+    """检测并尝试安装缺失库，支持 --user 权限绕过"""
+    try:
+        from asammdf import MDF
+        return True, ""
+    except ImportError:
+        try:
+            # 针对权限受限环境（如 Linux adminuser 或 Python 3.14）
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "asammdf", "pandas", "--user"])
+            from asammdf import MDF
+            return True, ""
+        except Exception as e:
+            return False, str(e)
+
+ASAMMDF_INSTALLED, ASAMMDF_ERROR = ensure_dependencies()
 
 # ===================== 1. 核心配置与移动端 UI 增强 =====================
 DBC_FILENAME = 'Geely_TMCU_V1.1_20250513_PrivateCAN_10.dbc'
 st.set_page_config(page_title="HVFAN 移动端分析系统", layout="wide")
 
-# 还原源码所有 CSS 样式
+# 还原源码所有 CSS 补丁
 st.markdown("""
     <style>
     .stFileUploader { position: relative; z-index: 1000 !important; }
@@ -43,7 +51,7 @@ st.markdown("""
 
 @st.cache_resource
 def load_dbc_engine(uploaded_file_content=None):
-    """还原：支持内建 DBC 和上传 DBC"""
+    """支持内建 DBC 和动态上传 DBC"""
     try:
         if uploaded_file_content is not None:
             dbc_text = uploaded_file_content.decode('gbk', errors='ignore')
@@ -57,9 +65,10 @@ def load_dbc_engine(uploaded_file_content=None):
 def process_mf4(file_content, dbc_path):
     """还原：MF4 深度解析逻辑"""
     if not ASAMMDF_INSTALLED:
-        st.error(f"❌ 解析失败：环境缺少 asammdf 库或 C++ 运行库。错误详情: {ASAMMDF_ERROR}")
+        st.error(f"❌ 环境缺失 asammdf 库。报错: {ASAMMDF_ERROR}")
         return {}
     
+    from asammdf import MDF
     data_dict = {}
     tmp_mf4 = "temp_log.mf4"
     with open(tmp_mf4, "wb") as f:
@@ -67,6 +76,7 @@ def process_mf4(file_content, dbc_path):
     
     try:
         mdf = MDF(tmp_mf4)
+        # 提取总线日志并关联 DBC 解析
         decoded = mdf.extract_bus_logging(database_files={'CAN': [(dbc_path, 0)]})
         df = decoded.to_dataframe()
         
@@ -128,7 +138,11 @@ def process_asc(file_content, db):
                         full_n = f"{msg.name}::{s_n}"
                         if full_n not in data_dict:
                             sig_obj = msg.get_signal_by_name(s_n)
-                            data_dict[full_n] = {'x': [], 'y': [], 'unit': sig_obj.unit or "", 'label': s_n}
+                            data_dict[full_n] = {
+                                'x': [], 'y': [], 
+                                'unit': sig_obj.unit or "", 
+                                'label': s_n
+                            }
                         data_dict[full_n]['x'].append(t)
                         data_dict[full_n]['y'].append(s_v)
             except: continue
@@ -142,8 +156,8 @@ with st.sidebar:
     st.header("⚙️ 协议库配置")
     if not ASAMMDF_INSTALLED:
         st.error(f"⚠️ asammdf 依赖库加载失败")
-        st.caption(f"错误原因: {ASAMMDF_ERROR}")
-        st.info("请在终端运行: pip install asammdf pandas --user")
+        st.caption(f"错误细节: {ASAMMDF_ERROR}")
+        st.info("尝试运行: pip install asammdf --user")
         
     uploaded_dbc = st.file_uploader("更新 DBC 文件", type=None, key="mobile_dbc_uploader")
     current_dbc_path = DBC_FILENAME
@@ -152,7 +166,7 @@ with st.sidebar:
             f.write(uploaded_dbc.getvalue())
         current_dbc_path = "temp_proto.dbc"
 
-# 还原：DBC 逻辑判断
+# 加载 DBC 引擎
 dbc_bytes = uploaded_dbc.getvalue() if uploaded_dbc else None
 db = load_dbc_engine(dbc_bytes)
 
@@ -160,6 +174,7 @@ if not db:
     st.warning("⚠️ 协议库未就绪。请确认侧边栏 DBC 状态。")
     st.stop()
 
+# 报文上传
 uploaded_file = st.file_uploader("📂 上传报文 (支持 .asc / .mf4 / .txt)", type=None, key="mobile_data_uploader")
 
 if uploaded_file is not None:
@@ -196,7 +211,7 @@ if uploaded_file is not None:
                 d = full_data[name]
                 x, y = d['x'], d['y']
                 
-                # 还原：大数据量自动抽稀优化
+                # 还原：大数据量自动抽稀优化（15000点）
                 if len(x) > 15000:
                     step = len(x) // 15000
                     x, y = x[::step], y[::step]
@@ -208,7 +223,7 @@ if uploaded_file is not None:
                     "y": y
                 })
 
-            # 还原：Plotly 渲染引擎（含同步缩放与测量逻辑）
+            # 还原：Plotly 同步缩放渲染引擎
             js_code = f"""
             <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
             <div id="chart-box"></div>
