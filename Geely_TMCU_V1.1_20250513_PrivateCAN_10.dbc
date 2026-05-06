@@ -1,0 +1,879 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: TMCU ACCM PTC PTC1 EDCP HBCP HCCP EDCP1 HVFM EXV EXV2 TBOX GW
+
+
+BO_ 2566871847 PMS_ACCtrl: 8 TMCU
+ SG_ PMS_ACCMEnable : 0|2@1+ (1,0) [0|3] "bit"  ACCM
+ SG_ PMS_PTCEnable : 2|2@1+ (1,0) [0|3] "bit"  PTC
+ SG_ PMS_ACCMWorkSpd : 8|16@1+ (1,0) [0|65534] "rpm"  ACCM
+ SG_ PMS_PTC_PowerSet : 24|8@1+ (0.1,0) [0|25.4] "kW"  PTC
+ SG_ PMS_PTC_OutTempSet : 32|8@1+ (1,-40) [-40|210] "degC"  PTC
+
+BO_ 2566910866 ACCM_Status: 8 ACCM
+ SG_ ACCM_ActWorkSpd : 0|16@1+ (1,0) [0|65534] "rpm"  TMCU
+ SG_ ACCM_WorkSts : 16|2@1+ (1,0) [0|255] "rpm"  TMCU
+ SG_ ACCM_ErrorCode : 32|8@1+ (1,0) [0|255] "rpm"  TMCU
+ SG_ ACCM_ActPower : 40|8@1+ (0.1,0) [0|25.4] "rpm"  TMCU
+ SG_ ACCM_ActCurr : 48|8@1+ (0.1,0) [0|25.4] "rpm"  TMCU
+ SG_ ACCM_ActVol : 56|8@1+ (4,0) [0|1016] "rpm"  TMCU
+
+BO_ 2566902162 ACCM_Info: 8 ACCM
+ SG_ ACCM_HightVolSelfLockSts : 0|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_MotorCurrOverCurrSts : 1|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_ActVolOverVolt : 2|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_ActVolUnderVolt : 3|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_IGBTOverTempSpeedDec : 4|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_IGBTOverTempFault : 5|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_ComError : 6|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_OverCurrDropFrq : 7|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_OverPwrDropFrq : 8|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_MissSpeed : 9|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_StartFailure : 10|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_UnderVolDropFrq : 11|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_MotorLocked : 12|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_OverLowVol : 13|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_UnderLowVol : 14|1@1+ (1,0) [0|1] "rpm"  TMCU
+ SG_ ACCM_HVLoopFault : 60|2@1+ (1,0) [0|3] "rpm"  TMCU
+
+BO_ 2566838930 ACCM_VerInfo: 8 ACCM
+ SG_ ACCM_HardwareMajorVer : 0|8@1+ (1,0) [0|255] "rpm"  TMCU
+ SG_ ACCM_HardwareMinorVer : 8|8@1+ (1,0) [0|255] "rpm"  TMCU
+ SG_ ACCM_SoftwareMajorVer : 16|8@1+ (1,0) [0|255] "rpm"  TMCU
+ SG_ ACCM_SoftwareMinorVer : 24|8@1+ (1,0) [0|255] "rpm"  TMCU
+ SG_ ACCM_SWCompileYear : 32|8@1+ (1,2000) [2000|2255] "rpm"  TMCU
+ SG_ ACCM_SWCompileMonth : 40|8@1+ (1,0) [0|12] "rpm"  TMCU
+ SG_ ACCM_SWCompileDay : 48|8@1+ (1,0) [0|31] "rpm"  TMCU
+
+BO_ 2566912295 PMS_PTCCtrl: 8 TMCU
+ SG_ PMS_PTC1_Enable : 16|2@1+ (1,0) [0|3] "bit"  PTC1
+ SG_ PMS_PTC_TemSet : 32|8@1+ (1,0) [0|124] "degC"  PTC
+ SG_ PMS_PTC1_RunSet : 40|4@1+ (1,0) [0|8] "bit"  PTC1
+ SG_ PMS_PTC1_PowerSet : 48|8@1+ (0.1,0) [0|25.4] "KW"  PTC1
+
+BO_ 2566860436 PTC_Feedback: 8 PTC
+ SG_ PTC_WorkSts : 0|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ PTC_HightVoltageSelfLockSts : 2|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ PTC_Temp : 8|8@1+ (1,-40) [-40|210] "bit"  TMCU
+ SG_ PTC_ErrorCode : 16|16@1+ (1,0) [0|65535] "bit"  TMCU
+ SG_ PTC_IGBTTemp : 32|8@1+ (1,-40) [-40|210] "bit"  TMCU
+ SG_ PTC_HighVolatge : 40|8@1+ (4,0) [0|1016] "bit"  TMCU
+ SG_ PTC_ActPower : 48|8@1+ (0.1,0) [0|25.4] "bit"  TMCU
+ SG_ PTC_ActCurr : 56|8@1+ (0.1,0) [0|25.4] "bit"  TMCU
+
+BO_ 2566860697 PTC1_Feedback: 8 PTC1
+ SG_ PTC1_WorkSts_20kw : 0|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ PTC1_HVSelfLockSts_20kw : 2|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ PTC1_Temp_20kw : 8|8@1+ (1,-40) [-40|210] "degC"  TMCU
+ SG_ PTC1_ErrorCode_20kw : 16|16@1+ (1,0) [0|65535] "bit"  TMCU
+ SG_ PTC1_IGBTTemp_20kw : 32|8@1+ (1,-40) [-40|210] "degC"  TMCU
+ SG_ PTC1_HighVolatge_20kw : 40|8@1+ (4,0) [0|1016] "V"  TMCU
+ SG_ PTC1_ActPower_20kw : 48|8@1+ (0.5,0) [0|127] "kW"  TMCU
+ SG_ PTC1_ActCurr_20kw : 56|8@1+ (0.5,0) [0|127] "A"  TMCU
+
+BO_ 2566838932 PTC_VerInfo: 8 PTC
+ SG_ PTC_HardwareMajorVer : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ PTC_HardwareMinorVer : 8|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ PTC_SoftwareMajorVer : 16|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ PTC_SoftwareMinorVer : 24|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ PTC_SWCompileYear : 32|8@1+ (1,2000) [2000|2255] "bit"  TMCU
+ SG_ PTC_SWCompileMonth : 40|8@1+ (1,0) [0|12] "bit"  TMCU
+ SG_ PTC_SWCompileDay : 48|8@1+ (1,0) [0|31] "bit"  TMCU
+
+BO_ 2566838937 PTC1_VerInfo: 8 PTC1
+ SG_ PTC1_HardwareMajorVer : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ PTC1_HardwareMinorVer : 8|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ PTC1_SoftwareMajorVer : 16|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ PTC1_SoftwareMinorVer : 24|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ PTC1_SWCompileYear : 32|8@1+ (1,2000) [2000|2255] "bit"  TMCU
+ SG_ PTC1_SWCompileMonth : 40|8@1+ (1,0) [0|12] "bit"  TMCU
+ SG_ PTC1_SWCompileDay : 48|8@1+ (1,0) [0|31] "bit"  TMCU
+
+BO_ 2566571303 PMS_WPCCtrl: 8 TMCU
+ SG_ PMS_EDCPEnable : 0|2@1+ (1,0) [0|3] "bit"  EDCP
+ SG_ PMS_HBCPEnable : 2|2@1+ (1,0) [0|3] "bit"  HBCP
+ SG_ PMS_EDCP1Enable : 6|2@1+ (1,0) [0|3] "bit"  EDCP1
+ SG_ PMS_EDCPPWMCtrl : 8|8@1+ (0.4,0) [0|100] "%"  EDCP
+ SG_ PMS_HBCPPWMCtrl : 16|8@1+ (0.4,0) [0|100] "%"  HBCP
+ SG_ PMS_EDCP1PWMCtrl : 32|8@1+ (0.4,0) [0|100] "%"  EDCP1
+ SG_ PMS_HCCPEnable : 40|2@1+ (1,0) [0|3] "%"  HCCP
+ SG_ PMS_HCCPPWMCtrl : 48|8@1+ (0.4,0) [0|100] "%"  HCCP
+
+BO_ 2566571321 EDCP_StsInfor: 8 EDCP
+ SG_ EDCP_FaultFB : 0|4@1+ (1,0) [0|15] "bit"  TMCU
+ SG_ EDCP_FaultLevel : 4|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ EDCP_WorkSts : 6|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ EDCP_ActPWMFB : 8|8@1+ (0.4,0) [0|100] "%"  TMCU
+
+BO_ 2566838841 EDCP_VerInfo: 8 EDCP
+ SG_ EDCP_HardwareMajorVer : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ EDCP_HardwareMinorVer : 8|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ EDCP_SoftwareMajorVer : 16|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ EDCP_SoftwareMinorVer : 24|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ EDCP_SWCompileYear : 32|8@1+ (1,2000) [2000|2255] "year"  TMCU
+ SG_ EDCP_SWCompileMonth : 40|8@1+ (1,0) [0|12] "month"  TMCU
+ SG_ EDCP_SWCompileDay : 48|8@1+ (1,0) [0|31] "day"  TMCU
+
+BO_ 2566571347 HBCP_StsInfor: 8 HBCP
+ SG_ HBCP_FaultFB : 0|4@1+ (1,0) [0|15] "bit"  TMCU
+ SG_ HBCP_FaultLevel : 4|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ HBCP_WorkSts : 6|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ HBCP_ActPWMFB : 8|8@1+ (0.4,0) [0|100] "%"  TMCU
+
+BO_ 2566838867 HBCP_VerInfo: 8 HBCP
+ SG_ HBCP_HardwareMajorVer : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HBCP_HardwareMinorVer : 8|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HBCP_SoftwareMajorVer : 16|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HBCP_SoftwareMinorVer : 24|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HBCP_SWCompileYear : 32|8@1+ (1,2000) [2000|2255] "year"  TMCU
+ SG_ HBCP_SWCompileMonth : 40|8@1+ (1,0) [0|12] "month"  TMCU
+ SG_ HBCP_SWCompileDay : 48|8@1+ (1,0) [0|31] "day"  TMCU
+
+BO_ 2566571348 HCCP_StsInfor: 8 HCCP
+ SG_ HCCP_FaultFB : 0|4@1+ (1,0) [0|15] "bit"  TMCU
+ SG_ HCCP_FaultLevel : 4|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ HCCP_WorkSts : 6|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ HCCP_ActPWMFB : 8|8@1+ (0.4,0) [0|100] "%"  TMCU
+
+BO_ 2566838868 HCCP_VerInfo: 8 HCCP
+ SG_ HCCP_HardwareMajorVer : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HCCP_HardwareMinorVer : 8|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HCCP_SoftwareMajorVer : 16|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HCCP_SoftwareMinorVer : 24|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HCCP_SWCompileYear : 32|8@1+ (1,2000) [2000|2255] "year"  TMCU
+ SG_ HCCP_SWCompileMonth : 40|8@1+ (1,0) [0|12] "month"  TMCU
+ SG_ HCCP_SWCompileDay : 48|8@1+ (1,0) [0|31] "day"  TMCU
+
+BO_ 2566571376 EDCP1_StsInfor: 8 EDCP1
+ SG_ EDCP1_FaultFB : 0|4@1+ (1,0) [0|15] "bit"  TMCU
+ SG_ EDCP1_FaultLevel : 4|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ EDCP1_WorkSts : 6|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ EDCP1_ActPWMFB : 8|8@1+ (0.4,0) [0|100] "%"  TMCU
+
+BO_ 2566838896 EDCP1_VerInfo: 8 EDCP1
+ SG_ EDCP1_HardwareMajorVer : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ EDCP1_HardwareMinorVer : 8|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ EDCP1_SoftwareMajorVer : 16|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ EDCP1_SoftwareMinorVer : 24|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ EDCP1_SWCompileYear : 32|8@1+ (1,2000) [2000|2255] "year"  TMCU
+ SG_ EDCP1_SWCompileMonth : 40|8@1+ (1,0) [0|12] "month"  TMCU
+ SG_ EDCP1_SWCompileDay : 48|8@1+ (1,0) [0|31] "day"  TMCU
+
+BO_ 2566885415 PMS_HVFMCtrl: 8 TMCU
+ SG_ PMS_HVFMCtrlChecksum : 0|8@1+ (1,0) [0|255] "bit"  HVFM
+ SG_ PMS_HVFMCtrlRollingCounter : 8|4@1+ (1,0) [0|15] "bit"  HVFM
+ SG_ PMS_HVFANModeReq : 12|3@1+ (1,0) [0|7] "bit"  HVFM
+ SG_ PMS_HVFANSpdReq : 16|16@1+ (1,0) [0|64255] "rpm"  HVFM
+
+BO_ 2566885737 HVFM_StsInfor1: 8 HVFM
+ SG_ HVFM_StsInfor1Checksum : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HVFM_StsInfor1RollingCounter : 8|4@1+ (1,0) [0|15] "bit"  TMCU
+ SG_ HVFM_StateFb : 12|3@1+ (1,0) [0|7] "bit"  TMCU
+ SG_ HVFM_ErrorLevel : 16|2@1+ (1,0) [0|3] "bit"  TMCU
+ SG_ HVFM_FaultCode : 18|6@1+ (1,0) [0|63] "bit"  TMCU
+ SG_ HVFM_MaxSpd : 24|16@1+ (1,0) [0|64255] "bit"  TMCU
+ SG_ HVFM_Swversion : 40|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HVFM_Flt_HVIL : 48|2@1+ (1,0) [0|2] "bit"  TMCU
+ SG_ HVFM_KL30State : 55|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ HVFM_OverUFlg : 56|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ HVFM_UnderUFlg : 57|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ HVFM_OverIFlg : 58|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ HVFM_OverTempMotorFlg : 59|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ HVFM_OverTempMcuFlg : 60|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ HVFM_CanbusoffFlg : 61|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ HVFM_RotorLockfFlg : 62|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ HVFM_HWErrorfFlg : 63|1@1+ (1,0) [0|1] "bit"  TMCU
+
+BO_ 2566885993 HVFM_StsInfor2: 8 HVFM
+ SG_ HVFM_StsInfor2Checksum : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HVFM_StsInfor2RollingCounter : 8|4@1+ (1,0) [0|15] "bit"  TMCU
+ SG_ HVFM_UInput : 12|10@1+ (1,0) [0|1023] "bit"  TMCU
+ SG_ HVFM_IInput : 23|9@1+ (0.1,0) [0|51] "bit"  TMCU
+ SG_ HVFM_MotorTemp : 32|8@1+ (1,-40) [-40|210] "bit"  TMCU
+ SG_ HVFM_MCUTemp : 40|8@1+ (1,-40) [-40|210] "bit"  TMCU
+ SG_ HVFM_ActSpd : 48|16@1+ (1,0) [0|64255] "bit"  TMCU
+
+BO_ 2566838889 HVFM_VerInfo: 8 HVFM
+ SG_ HVFM_HardwareMajorVer : 0|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HVFM_HardwareMinorVer : 8|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HVFM_SoftwareMajorVer : 16|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HVFM_SoftwareMinorVer : 24|8@1+ (1,0) [0|255] "bit"  TMCU
+ SG_ HVFM_SWCompileYear : 32|8@1+ (1,2000) [2000|2255] "bit"  TMCU
+ SG_ HVFM_SWCompileMonth : 40|8@1+ (1,0) [0|12] "bit"  TMCU
+ SG_ HVFM_SWCompileDay : 48|8@1+ (1,0) [0|31] "bit"  TMCU
+
+BO_ 2566584103 TMCU_EXV: 8 TMCU
+ SG_ TMM_EXV_PositionRequest1 : 0|16@1+ (1,0) [0|576] "bit"  EXV
+ SG_ TMM_EXV_EnableRequest1 : 16|1@1+ (1,0) [0|1] "bit"  EXV
+ SG_ TMM_EXV_initRequest1 : 24|3@1+ (1,0) [0|2] "bit"  EXV
+ SG_ TMM_EXV2_PositionRequest1 : 32|16@1+ (1,0) [0|576] "bit"  EXV2
+ SG_ TMM_EXV2_EnableRequest1 : 48|1@1+ (1,0) [0|1] "bit"  EXV2
+ SG_ TMM_EXV2_initRequest1 : 56|3@1+ (1,0) [0|2] "bit"  EXV2
+
+BO_ 2566584932 TMCU_TValveInfor: 8 TMCU
+ SG_ HCTV_Positionstatus : 0|4@1+ (1,0) [0|15] "bit"  GW
+ SG_ HCTV_MotorErrorSts : 4|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ HCTV_PosErrorSts : 5|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ HCTV_LINErrorSts : 6|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ BCTV_Positionstatus : 8|4@1+ (1,0) [0|15] "bit"  GW
+ SG_ BCTV_MotorErrorSts : 12|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ BCTV_PosErrorSts : 13|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ BCTV_LINErrorSts : 14|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ EDTV_Positionstatus : 16|4@1+ (1,0) [0|15] "bit"  GW
+ SG_ EDTV_MotorErrorSts : 20|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ EDTV_PosErrorSts : 21|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ EDTV_LINErrorSts : 22|1@1+ (1,0) [0|1] "bit"  GW
+
+BO_ 2566585188 TMCU_TControlSig: 8 TMCU
+ SG_ PMS_EDTVPosCmd : 0|4@1+ (1,0) [0|15] "bit"  GW
+ SG_ PMS_BCTVPosCmd : 4|4@1+ (1,0) [0|15] "bit"  GW
+ SG_ PMS_HCTVPosCmd : 8|4@1+ (1,0) [0|15] "bit"  GW
+ SG_ TMCU_FWVAutoCalibReq : 12|1@1+ (1,0) [0|1] ""  GW
+ SG_ TMCU_FWVSpare1 : 16|8@1+ (1,0) [0|255] ""  GW
+ SG_ TMCU_FWVSetAng : 24|8@1+ (1,-45) [-45|45] "degrees"  GW
+ SG_ TMCU_FWVPosnTyp : 32|8@1+ (1,0) [0|1] ""  GW
+
+BO_ 2566871908 TMCU_ACCtrl: 8 TMCU
+ SG_ PMS_BattPackInCoolTemp : 40|8@1+ (1,-40) [-40|210] "degC"  GW
+ SG_ PMS_BattPackoutCoolTemp : 48|8@1+ (1,-40) [-40|210] "degC"  GW
+
+BO_ 2566913124 TMCU_HardInfor: 8 TMCU
+ SG_ TMCU_ECPMPWMCtrl : 0|8@1+ (0.4,0) [0|100] "%"  GW
+ SG_ ECPM_FaultFB : 8|8@1+ (0.4,0) [0|100] "%"  GW
+ SG_ TMCU_PumpRlyCtrl : 16|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ PumpRly_FaultFB : 18|2@1+ (1,0) [0|3] "bit"  GW
+ SG_ TMCU_SOVCtrl : 20|1@1+ (1,0) [0|1] "bit"  GW
+ SG_ SOV_FaultFB : 22|2@1+ (1,0) [0|3] "bit"  GW
+
+BO_ 2566913380 TMCU_CooltTempInfo: 8 TMCU
+ SG_ TMCU_RadrUsTemp : 0|8@1+ (1,-40) [-40|210] "degC"  GW
+ SG_ TMCU_RadrDsTemp : 8|8@1+ (1,-40) [-40|210] "degC"  GW
+ SG_ TMCU_Chiller1DsTemp : 24|8@1+ (1,-40) [-40|210] "degC"  GW
+ SG_ TMCU_CmprUsTemp : 32|8@1+ (1,-40) [-40|210] "degC"  GW
+ SG_ TMCU_CmprDsTemp : 40|8@1+ (1,-40) [-40|210] "degC"  GW
+ SG_ TMCU_CondrDsTemp : 48|8@1+ (1,-40) [-40|210] "degC"  GW
+
+BO_ 2566913636 TMCU_RefgntPressInfo: 8 TMCU
+ SG_ TMCU_Chiller1DsPress : 0|8@1+ (0.1,0) [0|25] "bar"  GW
+ SG_ TMCU_CmprUsPress : 16|8@1+ (0.1,0) [0|25] "bar"  GW
+ SG_ TMCU_CmprDsPress : 24|8@1+ (0.1,0) [0|25] "bar"  GW
+ SG_ TMCU_CondrDsPress : 32|8@1+ (0.1,0) [0|25] "bar"  GW
+
+BO_ 2566913892 Wtr4Vlv_infor: 8 TMCU
+ SG_ FWV_ErrCod : 0|8@1+ (1,0) [0|255] ""  GW
+ SG_ FWV_SWVersion : 8|8@1+ (1,0) [0|255] ""  GW
+ SG_ FWV_ActSt : 16|2@1+ (1,0) [0|3] ""  GW
+ SG_ FWV_RespErr : 18|1@1+ (1,0) [0|1] ""  GW
+ SG_ FWV_CalibActive : 19|1@1+ (1,0) [0|1] ""  GW
+ SG_ FWV_CalibRequired : 20|1@1+ (1,0) [0|1] ""  GW
+ SG_ FWV_OverTempError : 21|1@1+ (1,0) [0|1] ""  GW
+ SG_ FWV_HWVersion : 24|8@1+ (1,0) [0|255] ""  GW
+ SG_ FWV_TarAng : 32|8@1+ (1,-45) [-45|45] "degrees"  GW
+ SG_ FWV_ActAng : 40|8@1+ (1,-45) [-45|45] "degrees"  GW
+
+BO_ 2566584435 EXV_StsInfor1: 8 EXV
+ SG_ EXV_ResponseError : 0|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ EXV_CurrentInitState : 2|2@1+ (1,0) [0|2] "bit"  TMCU
+ SG_ EXV_RunState : 4|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ EXV_FaultState : 8|4@1+ (1,0) [0|4] "bit"  TMCU
+ SG_ EXV_VoltageState : 12|2@1+ (1,0) [0|2] "bit"  TMCU
+ SG_ EXV_TemperatureWarn : 14|2@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ EXV_CurrentPosition : 16|16@1+ (1,0) [0|576] "bit"  TMCU
+
+BO_ 2566584691 EXV_StsInfor2: 8 EXV2
+ SG_ EXV2_ResponseError : 0|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ EXV2_CurrentInitState : 2|2@1+ (1,0) [0|2] "bit"  TMCU
+ SG_ EXV2_RunState : 4|1@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ EXV2_FaultState : 8|4@1+ (1,0) [0|4] "bit"  TMCU
+ SG_ EXV2_VoltageState : 12|2@1+ (1,0) [0|2] "bit"  TMCU
+ SG_ EXV2_TemperatureWarn : 14|2@1+ (1,0) [0|1] "bit"  TMCU
+ SG_ EXV2_CurrentPosition : 16|16@1+ (1,0) [0|576] "bit"  TMCU
+
+BO_ 2566842094 TBOX_TD: 8 TBOX
+ SG_ TBOX_Second : 0|8@1+ (0.25,0) [0|62.5] "s"  TMCU
+ SG_ TBOX_Minute : 8|8@1+ (1,0) [0|250] "s"  TMCU
+ SG_ TBOX_Hour : 16|8@1+ (1,0) [0|250] "s"  TMCU
+ SG_ TBOX_Month : 24|8@1+ (1,0) [0|250] "s"  TMCU
+ SG_ TBOX_Day : 32|8@1+ (0.25,0) [0|62.5] "s"  TMCU
+ SG_ TBOX_Year : 40|8@1+ (1,1985) [1985|2235] "s"  TMCU
+ SG_ TBOX_LocalMinuteOffset : 48|8@1+ (1,-125) [-125|125] "s"  TMCU
+ SG_ TBOX_LocalHourOffset : 56|8@1+ (1,-125) [-125|125] "s"  TMCU
+
+
+
+CM_ SG_ 2566871847 PMS_ACCMEnable "PMS_ACCMEnable";
+CM_ SG_ 2566871847 PMS_PTCEnable "PMS_PTCEnable";
+CM_ SG_ 2566871847 PMS_ACCMWorkSpd "PMS_ACCMWorkSpd";
+CM_ SG_ 2566871847 PMS_PTC_PowerSet "PMS_PTC_PowerSet";
+CM_ SG_ 2566871847 PMS_PTC_OutTempSet "PMS_PTC_OutTempSet";
+CM_ SG_ 2566910866 ACCM_ActWorkSpd "ACCM_ActWorkSpd";
+CM_ SG_ 2566910866 ACCM_WorkSts "ACCM_WorkSts";
+CM_ SG_ 2566910866 ACCM_ErrorCode "ACCM_ErrorCode";
+CM_ SG_ 2566910866 ACCM_ActPower "ACCM_ActPower";
+CM_ SG_ 2566910866 ACCM_ActCurr "ACCM_ActCurr";
+CM_ SG_ 2566910866 ACCM_ActVol "ACCM_ActVol";
+CM_ SG_ 2566902162 ACCM_HightVolSelfLockSts "ACCM_HightVolSelfLockSts";
+CM_ SG_ 2566902162 ACCM_MotorCurrOverCurrSts "ACCM_MotorCurrOverCurrSts";
+CM_ SG_ 2566902162 ACCM_ActVolOverVolt "ACCM_ActVolOverVolt";
+CM_ SG_ 2566902162 ACCM_ActVolUnderVolt "ACCM_ActVolUnderVolt";
+CM_ SG_ 2566902162 ACCM_IGBTOverTempSpeedDec "ACCM_IGBTOverTempSpeedDec";
+CM_ SG_ 2566902162 ACCM_IGBTOverTempFault "ACCM_IGBTOverTempFault";
+CM_ SG_ 2566902162 ACCM_ComError "ACCM_ComError";
+CM_ SG_ 2566902162 ACCM_OverCurrDropFrq "ACCM_OverCurrDropFrq";
+CM_ SG_ 2566902162 ACCM_OverPwrDropFrq "ACCM_OverPwrDropFrq";
+CM_ SG_ 2566902162 ACCM_MissSpeed "ACCM_MissSpeed";
+CM_ SG_ 2566902162 ACCM_StartFailure "ACCM_StartFailure";
+CM_ SG_ 2566902162 ACCM_UnderVolDropFrq "ACCM_ UnderVolDropFrq";
+CM_ SG_ 2566902162 ACCM_MotorLocked "ACCM_MotorLocked";
+CM_ SG_ 2566902162 ACCM_OverLowVol "ACCM_OverLowVol";
+CM_ SG_ 2566902162 ACCM_UnderLowVol "ACCM_UnderLowVol";
+CM_ SG_ 2566902162 ACCM_HVLoopFault "ACCM_HVLoopFault";
+CM_ SG_ 2566838930 ACCM_HardwareMajorVer "ACCM_HardwareMajorVer";
+CM_ SG_ 2566838930 ACCM_HardwareMinorVer "ACCM_HardwareMinorVer";
+CM_ SG_ 2566838930 ACCM_SoftwareMajorVer "ACCM_SoftwareMajorVer";
+CM_ SG_ 2566838930 ACCM_SoftwareMinorVer "ACCM_SoftwareMinorVer";
+CM_ SG_ 2566838930 ACCM_SWCompileYear "ACCM_SWCompileYear";
+CM_ SG_ 2566838930 ACCM_SWCompileMonth "ACCM_SWCompileMonth";
+CM_ SG_ 2566838930 ACCM_SWCompileDay "ACCM_SWCompileDay";
+CM_ SG_ 2566912295 PMS_PTC1_Enable "PMS_PTC1_Enable";
+CM_ SG_ 2566912295 PMS_PTC_TemSet "PMS_PTC_TemSet";
+CM_ SG_ 2566912295 PMS_PTC1_RunSet "PMS_PTC1_RunSet";
+CM_ SG_ 2566912295 PMS_PTC1_PowerSet "PMS_PTC1_PowerSet";
+CM_ SG_ 2566860436 PTC_WorkSts "PTC_WorkSts";
+CM_ SG_ 2566860436 PTC_HightVoltageSelfLockSts "PTC_HightVoltageSelfLockSts";
+CM_ SG_ 2566860436 PTC_Temp "PTC_Temp";
+CM_ SG_ 2566860436 PTC_ErrorCode "PTC_ErrorCode";
+CM_ SG_ 2566860436 PTC_IGBTTemp "PTC_IGBTTemp";
+CM_ SG_ 2566860436 PTC_HighVolatge "PTC_HighVolatge";
+CM_ SG_ 2566860436 PTC_ActPower "PTC_ActPower";
+CM_ SG_ 2566860436 PTC_ActCurr "PTC_ActCurr";
+CM_ SG_ 2566860697 PTC1_WorkSts_20kw "PTC1_WorkSts_20kw";
+CM_ SG_ 2566860697 PTC1_HVSelfLockSts_20kw "PTC1_HightVoltageSelfLockSts_20kw";
+CM_ SG_ 2566860697 PTC1_Temp_20kw "PTC1_Temp_20kw";
+CM_ SG_ 2566860697 PTC1_ErrorCode_20kw "PTC1_ErrorCode_20kw";
+CM_ SG_ 2566860697 PTC1_IGBTTemp_20kw "PTC1_IGBTTemp_20kw";
+CM_ SG_ 2566860697 PTC1_HighVolatge_20kw "PTC1_HighVolatge_20kw";
+CM_ SG_ 2566860697 PTC1_ActPower_20kw "PTC1_ActPower_20kw";
+CM_ SG_ 2566860697 PTC1_ActCurr_20kw "PTC1_ActCurr_20kw";
+CM_ SG_ 2566838932 PTC_HardwareMajorVer "PTC_HardwareMajorVer";
+CM_ SG_ 2566838932 PTC_HardwareMinorVer "PTC_HardwareMinorVer";
+CM_ SG_ 2566838932 PTC_SoftwareMajorVer "PTC_SoftwareMajorVer";
+CM_ SG_ 2566838932 PTC_SoftwareMinorVer "PTC_SoftwareMinorVer";
+CM_ SG_ 2566838932 PTC_SWCompileYear "PTC_SWCompileYear";
+CM_ SG_ 2566838932 PTC_SWCompileMonth "PTC_SWCompileMonth";
+CM_ SG_ 2566838932 PTC_SWCompileDay "PTC_SWCompileDay";
+CM_ SG_ 2566838937 PTC1_HardwareMajorVer "PTC1_HardwareMajorVer";
+CM_ SG_ 2566838937 PTC1_HardwareMinorVer "PTC1_HardwareMinorVer";
+CM_ SG_ 2566838937 PTC1_SoftwareMajorVer "PTC1_SoftwareMajorVer";
+CM_ SG_ 2566838937 PTC1_SoftwareMinorVer "PTC1_SoftwareMinorVer";
+CM_ SG_ 2566838937 PTC1_SWCompileYear "PTC1_SWCompileYear";
+CM_ SG_ 2566838937 PTC1_SWCompileMonth "PTC1_SWCompileMonth";
+CM_ SG_ 2566838937 PTC1_SWCompileDay "PTC1_SWCompileDay";
+CM_ SG_ 2566571303 PMS_EDCPEnable "PMS_EDCPEnable";
+CM_ SG_ 2566571303 PMS_HBCPEnable "PMS_HBCPEnable";
+CM_ SG_ 2566571303 PMS_EDCP1Enable "PMS_EDCP1Enable";
+CM_ SG_ 2566571303 PMS_EDCPPWMCtrl "PMS_EDCPPWMCtrl";
+CM_ SG_ 2566571303 PMS_HBCPPWMCtrl "PMS_HBCPPWMCtrl";
+CM_ SG_ 2566571303 PMS_EDCP1PWMCtrl "PMS_EDCP1PWMCtrl";
+CM_ SG_ 2566571303 PMS_HCCPEnable "PMS_HCCPEnable";
+CM_ SG_ 2566571303 PMS_HCCPPWMCtrl "PMS_HCCPPWMCtrl";
+CM_ SG_ 2566571321 EDCP_FaultFB "EDCP_FaultFB";
+CM_ SG_ 2566571321 EDCP_FaultLevel "EDCP_FaultLevel";
+CM_ SG_ 2566571321 EDCP_WorkSts "EDCP_WorkSts";
+CM_ SG_ 2566571321 EDCP_ActPWMFB "EDCP_ActPWMFB";
+CM_ SG_ 2566838841 EDCP_HardwareMajorVer "EDCP_HardwareMajorVer";
+CM_ SG_ 2566838841 EDCP_HardwareMinorVer "EDCP_HardwareMinorVer";
+CM_ SG_ 2566838841 EDCP_SoftwareMajorVer "EDCP_SoftwareMajorVer";
+CM_ SG_ 2566838841 EDCP_SoftwareMinorVer "EDCP_SoftwareMinorVer";
+CM_ SG_ 2566838841 EDCP_SWCompileYear "EDCP_SWCompileYear";
+CM_ SG_ 2566838841 EDCP_SWCompileMonth "EDCP_SWCompileMonth";
+CM_ SG_ 2566838841 EDCP_SWCompileDay "EDCP_SWCompileDay";
+CM_ SG_ 2566571347 HBCP_FaultFB "HBCP_FaultFB";
+CM_ SG_ 2566571347 HBCP_FaultLevel "HBCP_FaultLevel";
+CM_ SG_ 2566571347 HBCP_WorkSts "HBCP_WorkSts";
+CM_ SG_ 2566571347 HBCP_ActPWMFB "HBCP_ActPWMFB";
+CM_ SG_ 2566838867 HBCP_HardwareMajorVer "HBCP_HardwareMajorVer";
+CM_ SG_ 2566838867 HBCP_HardwareMinorVer "HBCP_HardwareMinorVer";
+CM_ SG_ 2566838867 HBCP_SoftwareMajorVer "HBCP_SoftwareMajorVer";
+CM_ SG_ 2566838867 HBCP_SoftwareMinorVer "HBCP_SoftwareMinorVer";
+CM_ SG_ 2566838867 HBCP_SWCompileYear "HBCP_SWCompileYear";
+CM_ SG_ 2566838867 HBCP_SWCompileMonth "HBCP_SWCompileMonth";
+CM_ SG_ 2566838867 HBCP_SWCompileDay "HBCP_SWCompileDay";
+CM_ SG_ 2566571348 HCCP_FaultFB "HCCP_FaultFB";
+CM_ SG_ 2566571348 HCCP_FaultLevel "HCCP_FaultLevel";
+CM_ SG_ 2566571348 HCCP_WorkSts "HCCP_WorkSts";
+CM_ SG_ 2566571348 HCCP_ActPWMFB "HCCP_ActPWMFB";
+CM_ SG_ 2566838868 HCCP_HardwareMajorVer "HCCP_HardwareMajorVer";
+CM_ SG_ 2566838868 HCCP_HardwareMinorVer "HCCP_HardwareMinorVer";
+CM_ SG_ 2566838868 HCCP_SoftwareMajorVer "HCCP_SoftwareMajorVer";
+CM_ SG_ 2566838868 HCCP_SoftwareMinorVer "HCCP_SoftwareMinorVer";
+CM_ SG_ 2566838868 HCCP_SWCompileYear "HCCP_SWCompileYear";
+CM_ SG_ 2566838868 HCCP_SWCompileMonth "HCCP_SWCompileMonth";
+CM_ SG_ 2566838868 HCCP_SWCompileDay "HCCP_SWCompileDay";
+CM_ SG_ 2566571376 EDCP1_FaultFB "EDCP1_FaultFB";
+CM_ SG_ 2566571376 EDCP1_FaultLevel "EDCP1_FaultLevel";
+CM_ SG_ 2566571376 EDCP1_WorkSts "EDCP1_WorkSts";
+CM_ SG_ 2566571376 EDCP1_ActPWMFB "EDCP1_ActPWMFB";
+CM_ SG_ 2566838896 EDCP1_HardwareMajorVer "EDCP1_HardwareMajorVer";
+CM_ SG_ 2566838896 EDCP1_HardwareMinorVer "EDCP1_HardwareMinorVer";
+CM_ SG_ 2566838896 EDCP1_SoftwareMajorVer "EDCP1_SoftwareMajorVer";
+CM_ SG_ 2566838896 EDCP1_SoftwareMinorVer "EDCP1_SoftwareMinorVer";
+CM_ SG_ 2566838896 EDCP1_SWCompileYear "EDCP1_SWCompileYear";
+CM_ SG_ 2566838896 EDCP1_SWCompileMonth "EDCP1_SWCompileMonth";
+CM_ SG_ 2566838896 EDCP1_SWCompileDay "EDCP1_SWCompileDay";
+CM_ SG_ 2566885415 PMS_HVFMCtrlChecksum "PMS_HVFMCtrlChecksum";
+CM_ SG_ 2566885415 PMS_HVFMCtrlRollingCounter "PMS_HVFMCtrlRollingCounter";
+CM_ SG_ 2566885415 PMS_HVFANModeReq "PMS_HVFANModeReq";
+CM_ SG_ 2566885415 PMS_HVFANSpdReq "PMS_HVFANSpdReq";
+CM_ SG_ 2566885737 HVFM_StsInfor1Checksum "HVFM_StsInfor1Checksum";
+CM_ SG_ 2566885737 HVFM_StsInfor1RollingCounter "HVFM_StsInfor1RollingCounter";
+CM_ SG_ 2566885737 HVFM_StateFb "HVFM_StateFb";
+CM_ SG_ 2566885737 HVFM_ErrorLevel "HVFM_ErrorLevel";
+CM_ SG_ 2566885737 HVFM_FaultCode "HVFM_FaultCode";
+CM_ SG_ 2566885737 HVFM_MaxSpd "HVFM_MaxSpd";
+CM_ SG_ 2566885737 HVFM_Swversion "HVFM_Swversion";
+CM_ SG_ 2566885737 HVFM_Flt_HVIL "HVFM_Flt_HVIL";
+CM_ SG_ 2566885737 HVFM_KL30State "HVFM_KL30State";
+CM_ SG_ 2566885737 HVFM_OverUFlg "HVFM_OverUFlg";
+CM_ SG_ 2566885737 HVFM_UnderUFlg "HVFM_UnderUFlg";
+CM_ SG_ 2566885737 HVFM_OverIFlg "HVFM_OverIFlg";
+CM_ SG_ 2566885737 HVFM_OverTempMotorFlg "HVFM_OverTempMotorFlg";
+CM_ SG_ 2566885737 HVFM_OverTempMcuFlg "HVFM_OverTempMcuFlg";
+CM_ SG_ 2566885737 HVFM_CanbusoffFlg "HVFM_CanbusoffFlg";
+CM_ SG_ 2566885737 HVFM_RotorLockfFlg "HVFM_RotorLockfFlg";
+CM_ SG_ 2566885737 HVFM_HWErrorfFlg "HVFM_HWErrorfFlg";
+CM_ SG_ 2566885993 HVFM_StsInfor2Checksum "HVFM_StsInfor2Checksum";
+CM_ SG_ 2566885993 HVFM_StsInfor2RollingCounter "HVFM_StsInfor2RollingCounter";
+CM_ SG_ 2566885993 HVFM_UInput "HVFM_UInput";
+CM_ SG_ 2566885993 HVFM_IInput "HVFM_IInput";
+CM_ SG_ 2566885993 HVFM_MotorTemp "HVFM_MotorTemp";
+CM_ SG_ 2566885993 HVFM_MCUTemp "HVFM_MCUTemp";
+CM_ SG_ 2566885993 HVFM_ActSpd "HVFM_ActSpd";
+CM_ SG_ 2566838889 HVFM_HardwareMajorVer "HVFM_HardwareMajorVer";
+CM_ SG_ 2566838889 HVFM_HardwareMinorVer "HVFM_HardwareMinorVer";
+CM_ SG_ 2566838889 HVFM_SoftwareMajorVer "HVFM_SoftwareMajorVer";
+CM_ SG_ 2566838889 HVFM_SoftwareMinorVer "HVFM_SoftwareMinorVer";
+CM_ SG_ 2566838889 HVFM_SWCompileYear "HVFM_SWCompileYear";
+CM_ SG_ 2566838889 HVFM_SWCompileMonth "HVFM_SWCompileMonth";
+CM_ SG_ 2566838889 HVFM_SWCompileDay "HVFM_SWCompileDay";
+CM_ SG_ 2566584103 TMM_EXV_PositionRequest1 "TMM_EXV_PositionRequest1";
+CM_ SG_ 2566584103 TMM_EXV_EnableRequest1 "TMM_EXV_EnableRequest1";
+CM_ SG_ 2566584103 TMM_EXV_initRequest1 "TMM_EXV_initRequest1";
+CM_ SG_ 2566584103 TMM_EXV2_PositionRequest1 "TMM_EXV2_PositionRequest1";
+CM_ SG_ 2566584103 TMM_EXV2_EnableRequest1 "TMM_EXV2_EnableRequest1";
+CM_ SG_ 2566584103 TMM_EXV2_initRequest1 "TMM_EXV2_initRequest1";
+CM_ SG_ 2566584932 HCTV_Positionstatus "HCTV_Positionstatus";
+CM_ SG_ 2566584932 HCTV_MotorErrorSts "HCTV_MotorErrorSts";
+CM_ SG_ 2566584932 HCTV_PosErrorSts "HCTV_PosErrorSts";
+CM_ SG_ 2566584932 HCTV_LINErrorSts "HCTV_LINErrorSts";
+CM_ SG_ 2566584932 BCTV_Positionstatus "BCTV_Positionstatus";
+CM_ SG_ 2566584932 BCTV_MotorErrorSts "BCTV_MotorErrorSts";
+CM_ SG_ 2566584932 BCTV_PosErrorSts "BCTV_PosErrorSts";
+CM_ SG_ 2566584932 BCTV_LINErrorSts "BCTV_LINErrorSts";
+CM_ SG_ 2566584932 EDTV_Positionstatus "EDTV_Positionstatus";
+CM_ SG_ 2566584932 EDTV_MotorErrorSts "EDTV_MotorErrorSts";
+CM_ SG_ 2566584932 EDTV_PosErrorSts "EDTV_PosErrorSts";
+CM_ SG_ 2566584932 EDTV_LINErrorSts "EDTV_LINErrorSts";
+CM_ SG_ 2566585188 PMS_EDTVPosCmd "PMS_EDTVPosCmd";
+CM_ SG_ 2566585188 PMS_BCTVPosCmd "PMS_BCTVPosCmd";
+CM_ SG_ 2566585188 PMS_HCTVPosCmd "PMS_HCTVPosCmd";
+CM_ SG_ 2566585188 TMCU_FWVAutoCalibReq "TMCU_FWVAutoCalibReq";
+CM_ SG_ 2566585188 TMCU_FWVSpare1 "TMCU_FWVSpare1";
+CM_ SG_ 2566585188 TMCU_FWVSetAng "TMCU_FWVSetAng";
+CM_ SG_ 2566585188 TMCU_FWVPosnTyp "TMCU_FWVPosnTyp";
+CM_ SG_ 2566871908 PMS_BattPackInCoolTemp "PMS_BattPackInCoolTemp";
+CM_ SG_ 2566871908 PMS_BattPackoutCoolTemp "PMS_BattPackoutCoolTemp";
+CM_ SG_ 2566913124 TMCU_ECPMPWMCtrl "TMCU_ECPMPWMCtrl";
+CM_ SG_ 2566913124 ECPM_FaultFB "ECPM_FaultFB";
+CM_ SG_ 2566913124 TMCU_PumpRlyCtrl "TMCU_PumpRlyCtrl";
+CM_ SG_ 2566913124 PumpRly_FaultFB "PumpRly_FaultFB";
+CM_ SG_ 2566913124 TMCU_SOVCtrl "TMCU_SOVCtrl";
+CM_ SG_ 2566913124 SOV_FaultFB "SOV_FaultFB";
+CM_ SG_ 2566913380 TMCU_RadrUsTemp "TMCU_RadrUsTemp";
+CM_ SG_ 2566913380 TMCU_RadrDsTemp "TMCU_RadrDsTemp";
+CM_ SG_ 2566913380 TMCU_CmprUsTemp "TMCU_CmprUsTemp";
+CM_ SG_ 2566913380 TMCU_CmprDsTemp "TMCU_CmprDsTemp";
+CM_ SG_ 2566913380 TMCU_CondrDsTemp "TMCU_CondrDsTemp";
+CM_ SG_ 2566913636 TMCU_Chiller1DsPress "TMCU_Chiller1DsPressTMCU_Chiller1DsPress";
+CM_ SG_ 2566913636 TMCU_CmprUsPress "TMCU_CmprUsPress";
+CM_ SG_ 2566913636 TMCU_CmprDsPress "TMCU_CmprDsPress";
+CM_ SG_ 2566913636 TMCU_CondrDsPress "TMCU_CondrDsPress";
+CM_ SG_ 2566913892 FWV_ErrCod "FWV_ErrCod";
+CM_ SG_ 2566913892 FWV_SWVersion "FWV_SWVersion";
+CM_ SG_ 2566913892 FWV_ActSt "FWV_ActSt";
+CM_ SG_ 2566913892 FWV_RespErr "FWV_RespErr";
+CM_ SG_ 2566913892 FWV_CalibActive "FWV_CalibActive";
+CM_ SG_ 2566913892 FWV_CalibRequired "FWV_CalibRequired";
+CM_ SG_ 2566913892 FWV_OverTempError "FWV_OverTempError";
+CM_ SG_ 2566913892 FWV_HWVersion "FWV_HWVersion";
+CM_ SG_ 2566913892 FWV_TarAng "FWV_TarAng";
+CM_ SG_ 2566913892 FWV_ActAng "FWV_ActAng";
+CM_ SG_ 2566584435 EXV_ResponseError "EXV_ResponseError";
+CM_ SG_ 2566584435 EXV_CurrentInitState "EXV_CurrentInitState";
+CM_ SG_ 2566584435 EXV_RunState "EXV_RunState";
+CM_ SG_ 2566584435 EXV_FaultState "EXV_FaultState";
+CM_ SG_ 2566584435 EXV_VoltageState "EXV_VoltageState";
+CM_ SG_ 2566584435 EXV_TemperatureWarn "EXV_TemperatureWarn";
+CM_ SG_ 2566584435 EXV_CurrentPosition "EXV_CurrentPosition";
+CM_ SG_ 2566584691 EXV2_ResponseError "EXV2_ResponseError";
+CM_ SG_ 2566584691 EXV2_CurrentInitState "EXV2_CurrentInitState";
+CM_ SG_ 2566584691 EXV2_RunState "EXV2_RunState";
+CM_ SG_ 2566584691 EXV2_FaultState "EXV2_FaultState";
+CM_ SG_ 2566584691 EXV2_VoltageState "EXV2_VoltageState";
+CM_ SG_ 2566584691 EXV2_TemperatureWarn "EXV2_TemperatureWarn";
+CM_ SG_ 2566584691 EXV2_CurrentPosition "EXV2_CurrentPosition";
+CM_ SG_ 2566842094 TBOX_Second "TBOX_Second";
+CM_ SG_ 2566842094 TBOX_Minute "TBOX_Minute";
+CM_ SG_ 2566842094 TBOX_Hour "TBOX_Hour";
+CM_ SG_ 2566842094 TBOX_Month "TBOX_Month";
+CM_ SG_ 2566842094 TBOX_Day "TBOX_Day";
+CM_ SG_ 2566842094 TBOX_Year "TBOX_Year";
+CM_ SG_ 2566842094 TBOX_LocalMinuteOffset "TBOX_LocalMinuteOffset";
+CM_ SG_ 2566842094 TBOX_LocalHourOffset "TBOX_LocalHourOffset";
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "ProtocolType" STRING ;
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 100000000000;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","J1939PG","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","Event","CyclicOnChange","not_used","IfActive","NoMsgSendType";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "ProtocolType" "";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "VFrameFormat" "";
+BA_DEF_DEF_  "CANFD_BRS" "0";
+BA_DEF_DEF_  "GenMsgSendType" "NoMsgSendType";
+BA_ "BusType" "CAN";
+BA_ "DBName" "TMCU_PrivateCAN";
+BA_ "GenMsgCycleTime" BO_ 2566871847 100;
+BA_ "GenMsgSendType" BO_ 2566871847 0;
+BA_ "GenMsgCycleTime" BO_ 2566910866 100;
+BA_ "GenMsgSendType" BO_ 2566910866 0;
+BA_ "GenMsgCycleTime" BO_ 2566902162 100;
+BA_ "GenMsgSendType" BO_ 2566902162 0;
+BA_ "GenMsgCycleTime" BO_ 2566838930 1000;
+BA_ "GenMsgSendType" BO_ 2566838930 0;
+BA_ "GenMsgCycleTime" BO_ 2566912295 100;
+BA_ "GenMsgSendType" BO_ 2566912295 0;
+BA_ "GenMsgCycleTime" BO_ 2566860436 100;
+BA_ "GenMsgSendType" BO_ 2566860436 0;
+BA_ "GenMsgCycleTime" BO_ 2566860697 100;
+BA_ "GenMsgSendType" BO_ 2566860697 0;
+BA_ "GenMsgCycleTime" BO_ 2566838932 1000;
+BA_ "GenMsgSendType" BO_ 2566838932 0;
+BA_ "GenMsgCycleTime" BO_ 2566838937 1000;
+BA_ "GenMsgSendType" BO_ 2566838937 0;
+BA_ "GenMsgCycleTime" BO_ 2566571303 200;
+BA_ "GenMsgSendType" BO_ 2566571303 0;
+BA_ "GenMsgCycleTime" BO_ 2566571321 200;
+BA_ "GenMsgSendType" BO_ 2566571321 0;
+BA_ "GenMsgCycleTime" BO_ 2566838841 1000;
+BA_ "GenMsgSendType" BO_ 2566838841 0;
+BA_ "GenMsgCycleTime" BO_ 2566571347 200;
+BA_ "GenMsgSendType" BO_ 2566571347 0;
+BA_ "GenMsgCycleTime" BO_ 2566838867 1000;
+BA_ "GenMsgSendType" BO_ 2566838867 0;
+BA_ "GenMsgCycleTime" BO_ 2566571348 200;
+BA_ "GenMsgSendType" BO_ 2566571348 0;
+BA_ "GenMsgCycleTime" BO_ 2566838868 1000;
+BA_ "GenMsgSendType" BO_ 2566838868 0;
+BA_ "GenMsgCycleTime" BO_ 2566571376 200;
+BA_ "GenMsgSendType" BO_ 2566571376 0;
+BA_ "GenMsgCycleTime" BO_ 2566838896 1000;
+BA_ "GenMsgSendType" BO_ 2566838896 0;
+BA_ "GenMsgCycleTime" BO_ 2566885415 100;
+BA_ "GenMsgSendType" BO_ 2566885415 0;
+BA_ "GenMsgCycleTime" BO_ 2566885737 100;
+BA_ "GenMsgSendType" BO_ 2566885737 0;
+BA_ "GenMsgCycleTime" BO_ 2566885993 100;
+BA_ "GenMsgSendType" BO_ 2566885993 0;
+BA_ "GenMsgCycleTime" BO_ 2566838889 1000;
+BA_ "GenMsgSendType" BO_ 2566838889 0;
+BA_ "GenMsgCycleTime" BO_ 2566584103 20;
+BA_ "GenMsgSendType" BO_ 2566584103 0;
+BA_ "GenMsgCycleTime" BO_ 2566584932 1000;
+BA_ "GenMsgSendType" BO_ 2566584932 0;
+BA_ "GenMsgCycleTime" BO_ 2566585188 1000;
+BA_ "GenMsgSendType" BO_ 2566585188 0;
+BA_ "GenMsgCycleTime" BO_ 2566871908 100;
+BA_ "GenMsgSendType" BO_ 2566871908 0;
+BA_ "GenMsgCycleTime" BO_ 2566913124 100;
+BA_ "GenMsgSendType" BO_ 2566913124 0;
+BA_ "GenMsgCycleTime" BO_ 2566913380 100;
+BA_ "GenMsgSendType" BO_ 2566913380 0;
+BA_ "GenMsgCycleTime" BO_ 2566913636 100;
+BA_ "GenMsgSendType" BO_ 2566913636 0;
+BA_ "GenMsgCycleTime" BO_ 2566913892 100;
+BA_ "GenMsgSendType" BO_ 2566913892 0;
+BA_ "GenMsgCycleTime" BO_ 2566584435 100;
+BA_ "GenMsgSendType" BO_ 2566584435 0;
+BA_ "GenMsgCycleTime" BO_ 2566584691 100;
+BA_ "GenMsgSendType" BO_ 2566584691 0;
+BA_ "GenMsgCycleTime" BO_ 2566842094 1000;
+BA_ "GenMsgSendType" BO_ 2566842094 0;
+BA_ "GenSigStartValue" SG_ 2566871847 PMS_ACCMEnable 3;
+BA_ "GenSigStartValue" SG_ 2566871847 PMS_PTCEnable 3;
+BA_ "GenSigStartValue" SG_ 2566871847 PMS_ACCMWorkSpd 0;
+BA_ "GenSigStartValue" SG_ 2566871847 PMS_PTC_PowerSet 0;
+BA_ "GenSigStartValue" SG_ 2566871847 PMS_PTC_OutTempSet 0;
+BA_ "GenSigStartValue" SG_ 2566910866 ACCM_ActWorkSpd 0;
+BA_ "GenSigStartValue" SG_ 2566910866 ACCM_WorkSts 0;
+BA_ "GenSigStartValue" SG_ 2566910866 ACCM_ErrorCode 0;
+BA_ "GenSigStartValue" SG_ 2566910866 ACCM_ActPower 0;
+BA_ "GenSigStartValue" SG_ 2566910866 ACCM_ActCurr 0;
+BA_ "GenSigStartValue" SG_ 2566910866 ACCM_ActVol 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_HightVolSelfLockSts 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_MotorCurrOverCurrSts 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_ActVolOverVolt 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_ActVolUnderVolt 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_IGBTOverTempSpeedDec 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_IGBTOverTempFault 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_ComError 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_OverCurrDropFrq 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_OverPwrDropFrq 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_MissSpeed 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_StartFailure 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_UnderVolDropFrq 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_MotorLocked 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_OverLowVol 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_UnderLowVol 0;
+BA_ "GenSigStartValue" SG_ 2566902162 ACCM_HVLoopFault 3;
+BA_ "GenSigStartValue" SG_ 2566838930 ACCM_HardwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838930 ACCM_HardwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838930 ACCM_SoftwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838930 ACCM_SoftwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838930 ACCM_SWCompileYear 0;
+BA_ "GenSigStartValue" SG_ 2566838930 ACCM_SWCompileMonth 0;
+BA_ "GenSigStartValue" SG_ 2566838930 ACCM_SWCompileDay 0;
+BA_ "GenSigStartValue" SG_ 2566912295 PMS_PTC1_Enable 0;
+BA_ "GenSigStartValue" SG_ 2566912295 PMS_PTC_TemSet 0;
+BA_ "GenSigStartValue" SG_ 2566912295 PMS_PTC1_RunSet 0;
+BA_ "GenSigStartValue" SG_ 2566912295 PMS_PTC1_PowerSet 0;
+BA_ "GenSigStartValue" SG_ 2566860436 PTC_WorkSts 0;
+BA_ "GenSigStartValue" SG_ 2566860436 PTC_HightVoltageSelfLockSts 0;
+BA_ "GenSigStartValue" SG_ 2566860436 PTC_Temp 40;
+BA_ "GenSigStartValue" SG_ 2566860436 PTC_ErrorCode 0;
+BA_ "GenSigStartValue" SG_ 2566860436 PTC_IGBTTemp 40;
+BA_ "GenSigStartValue" SG_ 2566860436 PTC_HighVolatge 0;
+BA_ "GenSigStartValue" SG_ 2566860436 PTC_ActPower 0;
+BA_ "GenSigStartValue" SG_ 2566860436 PTC_ActCurr 0;
+BA_ "GenSigStartValue" SG_ 2566860697 PTC1_WorkSts_20kw 0;
+BA_ "GenSigStartValue" SG_ 2566860697 PTC1_HVSelfLockSts_20kw 0;
+BA_ "GenSigStartValue" SG_ 2566860697 PTC1_Temp_20kw 40;
+BA_ "GenSigStartValue" SG_ 2566860697 PTC1_ErrorCode_20kw 0;
+BA_ "GenSigStartValue" SG_ 2566860697 PTC1_IGBTTemp_20kw 40;
+BA_ "GenSigStartValue" SG_ 2566860697 PTC1_HighVolatge_20kw 0;
+BA_ "GenSigStartValue" SG_ 2566860697 PTC1_ActPower_20kw 0;
+BA_ "GenSigStartValue" SG_ 2566860697 PTC1_ActCurr_20kw 0;
+BA_ "GenSigStartValue" SG_ 2566838932 PTC_HardwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838932 PTC_HardwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838932 PTC_SoftwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838932 PTC_SoftwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838932 PTC_SWCompileYear 0;
+BA_ "GenSigStartValue" SG_ 2566838932 PTC_SWCompileMonth 0;
+BA_ "GenSigStartValue" SG_ 2566838932 PTC_SWCompileDay 0;
+BA_ "GenSigStartValue" SG_ 2566838937 PTC1_HardwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838937 PTC1_HardwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838937 PTC1_SoftwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838937 PTC1_SoftwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838937 PTC1_SWCompileYear 0;
+BA_ "GenSigStartValue" SG_ 2566838937 PTC1_SWCompileMonth 0;
+BA_ "GenSigStartValue" SG_ 2566838937 PTC1_SWCompileDay 0;
+BA_ "GenSigStartValue" SG_ 2566571303 PMS_EDCPEnable 0;
+BA_ "GenSigStartValue" SG_ 2566571303 PMS_HBCPEnable 0;
+BA_ "GenSigStartValue" SG_ 2566571303 PMS_EDCP1Enable 0;
+BA_ "GenSigStartValue" SG_ 2566571303 PMS_EDCPPWMCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566571303 PMS_HBCPPWMCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566571303 PMS_EDCP1PWMCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566571303 PMS_HCCPEnable 0;
+BA_ "GenSigStartValue" SG_ 2566571303 PMS_HCCPPWMCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566571321 EDCP_FaultFB 0;
+BA_ "GenSigStartValue" SG_ 2566571321 EDCP_FaultLevel 0;
+BA_ "GenSigStartValue" SG_ 2566571321 EDCP_WorkSts 0;
+BA_ "GenSigStartValue" SG_ 2566571321 EDCP_ActPWMFB 0;
+BA_ "GenSigStartValue" SG_ 2566838841 EDCP_HardwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838841 EDCP_HardwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838841 EDCP_SoftwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838841 EDCP_SoftwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838841 EDCP_SWCompileYear 0;
+BA_ "GenSigStartValue" SG_ 2566838841 EDCP_SWCompileMonth 0;
+BA_ "GenSigStartValue" SG_ 2566838841 EDCP_SWCompileDay 0;
+BA_ "GenSigStartValue" SG_ 2566571347 HBCP_FaultFB 0;
+BA_ "GenSigStartValue" SG_ 2566571347 HBCP_FaultLevel 0;
+BA_ "GenSigStartValue" SG_ 2566571347 HBCP_WorkSts 0;
+BA_ "GenSigStartValue" SG_ 2566571347 HBCP_ActPWMFB 0;
+BA_ "GenSigStartValue" SG_ 2566838867 HBCP_HardwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838867 HBCP_HardwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838867 HBCP_SoftwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838867 HBCP_SoftwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838867 HBCP_SWCompileYear 0;
+BA_ "GenSigStartValue" SG_ 2566838867 HBCP_SWCompileMonth 0;
+BA_ "GenSigStartValue" SG_ 2566838867 HBCP_SWCompileDay 0;
+BA_ "GenSigStartValue" SG_ 2566571348 HCCP_FaultFB 0;
+BA_ "GenSigStartValue" SG_ 2566571348 HCCP_FaultLevel 0;
+BA_ "GenSigStartValue" SG_ 2566571348 HCCP_WorkSts 0;
+BA_ "GenSigStartValue" SG_ 2566571348 HCCP_ActPWMFB 0;
+BA_ "GenSigStartValue" SG_ 2566838868 HCCP_HardwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838868 HCCP_HardwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838868 HCCP_SoftwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838868 HCCP_SoftwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838868 HCCP_SWCompileYear 0;
+BA_ "GenSigStartValue" SG_ 2566838868 HCCP_SWCompileMonth 0;
+BA_ "GenSigStartValue" SG_ 2566838868 HCCP_SWCompileDay 0;
+BA_ "GenSigStartValue" SG_ 2566571376 EDCP1_FaultFB 0;
+BA_ "GenSigStartValue" SG_ 2566571376 EDCP1_FaultLevel 0;
+BA_ "GenSigStartValue" SG_ 2566571376 EDCP1_WorkSts 0;
+BA_ "GenSigStartValue" SG_ 2566571376 EDCP1_ActPWMFB 0;
+BA_ "GenSigStartValue" SG_ 2566838896 EDCP1_HardwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838896 EDCP1_HardwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838896 EDCP1_SoftwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838896 EDCP1_SoftwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838896 EDCP1_SWCompileYear 0;
+BA_ "GenSigStartValue" SG_ 2566838896 EDCP1_SWCompileMonth 0;
+BA_ "GenSigStartValue" SG_ 2566838896 EDCP1_SWCompileDay 0;
+BA_ "GenSigStartValue" SG_ 2566885415 PMS_HVFMCtrlChecksum 0;
+BA_ "GenSigStartValue" SG_ 2566885415 PMS_HVFMCtrlRollingCounter 0;
+BA_ "GenSigStartValue" SG_ 2566885415 PMS_HVFANModeReq 0;
+BA_ "GenSigStartValue" SG_ 2566885415 PMS_HVFANSpdReq 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_StsInfor1Checksum 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_StsInfor1RollingCounter 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_StateFb 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_ErrorLevel 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_FaultCode 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_MaxSpd 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_Swversion 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_Flt_HVIL 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_KL30State 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_OverUFlg 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_UnderUFlg 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_OverIFlg 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_OverTempMotorFlg 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_OverTempMcuFlg 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_CanbusoffFlg 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_RotorLockfFlg 0;
+BA_ "GenSigStartValue" SG_ 2566885737 HVFM_HWErrorfFlg 0;
+BA_ "GenSigStartValue" SG_ 2566885993 HVFM_StsInfor2Checksum 0;
+BA_ "GenSigStartValue" SG_ 2566885993 HVFM_StsInfor2RollingCounter 0;
+BA_ "GenSigStartValue" SG_ 2566885993 HVFM_UInput 0;
+BA_ "GenSigStartValue" SG_ 2566885993 HVFM_IInput 0;
+BA_ "GenSigStartValue" SG_ 2566885993 HVFM_MotorTemp 0;
+BA_ "GenSigStartValue" SG_ 2566885993 HVFM_MCUTemp 0;
+BA_ "GenSigStartValue" SG_ 2566885993 HVFM_ActSpd 0;
+BA_ "GenSigStartValue" SG_ 2566838889 HVFM_HardwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838889 HVFM_HardwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838889 HVFM_SoftwareMajorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838889 HVFM_SoftwareMinorVer 0;
+BA_ "GenSigStartValue" SG_ 2566838889 HVFM_SWCompileYear 0;
+BA_ "GenSigStartValue" SG_ 2566838889 HVFM_SWCompileMonth 0;
+BA_ "GenSigStartValue" SG_ 2566838889 HVFM_SWCompileDay 0;
+BA_ "GenSigStartValue" SG_ 2566584103 TMM_EXV_PositionRequest1 0;
+BA_ "GenSigStartValue" SG_ 2566584103 TMM_EXV_EnableRequest1 0;
+BA_ "GenSigStartValue" SG_ 2566584103 TMM_EXV_initRequest1 0;
+BA_ "GenSigStartValue" SG_ 2566584103 TMM_EXV2_PositionRequest1 0;
+BA_ "GenSigStartValue" SG_ 2566584103 TMM_EXV2_EnableRequest1 0;
+BA_ "GenSigStartValue" SG_ 2566584103 TMM_EXV2_initRequest1 0;
+BA_ "GenSigStartValue" SG_ 2566584932 HCTV_Positionstatus 0;
+BA_ "GenSigStartValue" SG_ 2566584932 HCTV_MotorErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566584932 HCTV_PosErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566584932 HCTV_LINErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566584932 BCTV_Positionstatus 0;
+BA_ "GenSigStartValue" SG_ 2566584932 BCTV_MotorErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566584932 BCTV_PosErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566584932 BCTV_LINErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566584932 EDTV_Positionstatus 0;
+BA_ "GenSigStartValue" SG_ 2566584932 EDTV_MotorErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566584932 EDTV_PosErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566584932 EDTV_LINErrorSts 0;
+BA_ "GenSigStartValue" SG_ 2566585188 PMS_EDTVPosCmd 0;
+BA_ "GenSigStartValue" SG_ 2566585188 PMS_BCTVPosCmd 0;
+BA_ "GenSigStartValue" SG_ 2566585188 PMS_HCTVPosCmd 0;
+BA_ "GenSigStartValue" SG_ 2566585188 TMCU_FWVAutoCalibReq 0;
+BA_ "GenSigStartValue" SG_ 2566585188 TMCU_FWVSpare1 255;
+BA_ "GenSigStartValue" SG_ 2566585188 TMCU_FWVSetAng 45;
+BA_ "GenSigStartValue" SG_ 2566585188 TMCU_FWVPosnTyp 1;
+BA_ "GenSigStartValue" SG_ 2566871908 PMS_BattPackInCoolTemp 65;
+BA_ "GenSigStartValue" SG_ 2566871908 PMS_BattPackoutCoolTemp 65;
+BA_ "GenSigStartValue" SG_ 2566913124 TMCU_ECPMPWMCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566913124 ECPM_FaultFB 62.5;
+BA_ "GenSigStartValue" SG_ 2566913124 TMCU_PumpRlyCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566913124 PumpRly_FaultFB 0;
+BA_ "GenSigStartValue" SG_ 2566913124 TMCU_SOVCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566913124 SOV_FaultFB 0;
+BA_ "GenSigStartValue" SG_ 2566913380 TMCU_RadrUsTemp 65;
+BA_ "GenSigStartValue" SG_ 2566913380 TMCU_RadrDsTemp 65;
+BA_ "GenSigStartValue" SG_ 2566913380 TMCU_CmprUsTemp 65;
+BA_ "GenSigStartValue" SG_ 2566913380 TMCU_CmprDsTemp 65;
+BA_ "GenSigStartValue" SG_ 2566913380 TMCU_CondrDsTemp 65;
+BA_ "GenSigStartValue" SG_ 2566913636 TMCU_Chiller1DsPress 0;
+BA_ "GenSigStartValue" SG_ 2566913636 TMCU_CmprUsPress 0;
+BA_ "GenSigStartValue" SG_ 2566913636 TMCU_CmprDsPress 0;
+BA_ "GenSigStartValue" SG_ 2566913636 TMCU_CondrDsPress 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_ErrCod 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_SWVersion 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_ActSt 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_RespErr 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_CalibActive 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_CalibRequired 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_OverTempError 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_HWVersion 0;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_TarAng 45;
+BA_ "GenSigStartValue" SG_ 2566913892 FWV_ActAng 45;
+BA_ "GenSigStartValue" SG_ 2566584435 EXV_ResponseError 0;
+BA_ "GenSigStartValue" SG_ 2566584435 EXV_CurrentInitState 0;
+BA_ "GenSigStartValue" SG_ 2566584435 EXV_RunState 0;
+BA_ "GenSigStartValue" SG_ 2566584435 EXV_FaultState 0;
+BA_ "GenSigStartValue" SG_ 2566584435 EXV_VoltageState 0;
+BA_ "GenSigStartValue" SG_ 2566584435 EXV_TemperatureWarn 0;
+BA_ "GenSigStartValue" SG_ 2566584435 EXV_CurrentPosition 0;
+BA_ "GenSigStartValue" SG_ 2566584691 EXV2_ResponseError 0;
+BA_ "GenSigStartValue" SG_ 2566584691 EXV2_CurrentInitState 0;
+BA_ "GenSigStartValue" SG_ 2566584691 EXV2_RunState 0;
+BA_ "GenSigStartValue" SG_ 2566584691 EXV2_FaultState 0;
+BA_ "GenSigStartValue" SG_ 2566584691 EXV2_VoltageState 0;
+BA_ "GenSigStartValue" SG_ 2566584691 EXV2_TemperatureWarn 0;
+BA_ "GenSigStartValue" SG_ 2566584691 EXV2_CurrentPosition 0;
+BA_ "GenSigStartValue" SG_ 2566842094 TBOX_Second 0;
+BA_ "GenSigStartValue" SG_ 2566842094 TBOX_Minute 0;
+BA_ "GenSigStartValue" SG_ 2566842094 TBOX_Hour 0;
+BA_ "GenSigStartValue" SG_ 2566842094 TBOX_Month 0;
+BA_ "GenSigStartValue" SG_ 2566842094 TBOX_Day 0;
+BA_ "GenSigStartValue" SG_ 2566842094 TBOX_Year 0;
+BA_ "GenSigStartValue" SG_ 2566842094 TBOX_LocalMinuteOffset 0;
+BA_ "GenSigStartValue" SG_ 2566842094 TBOX_LocalHourOffset 0;
+
