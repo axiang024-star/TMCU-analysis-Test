@@ -4,20 +4,28 @@ import re
 import os
 import json
 import io
+import sys
 import streamlit.components.v1 as components
 
-# 尝试导入 MF4 解析库[cite: 1]
+# ===================== 0. 依赖库自动检测与静默安装 (方法一) =====================
 try:
     from asammdf import MDF
     ASAMMDF_INSTALLED = True
 except ImportError:
-    ASAMMDF_INSTALLED = False
+    # 如果导入失败，自动在后台安装所需的依赖包
+    try:
+        import subprocess
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "asammdf", "pandas"])
+        from asammdf import MDF
+        ASAMMDF_INSTALLED = True
+    except Exception as e:
+        ASAMMDF_INSTALLED = False
 
 # ===================== 1. 核心配置与移动端 UI 增强 =====================
 DBC_FILENAME = 'Geely_TMCU_V1.1_20250513_PrivateCAN_10.dbc'
 st.set_page_config(page_title="HVFAN 报文分析系统", layout="wide")
 
-# 深度 CSS 补丁：保留原有的移动端点击热区与布局优化[cite: 1]
+# 深度 CSS 补丁：保留原有的移动端点击热区与布局优化
 st.markdown("""
     <style>
     .stFileUploader { position: relative; z-index: 1000 !important; }
@@ -39,7 +47,7 @@ st.markdown("""
 
 @st.cache_resource
 def load_dbc_engine(uploaded_file_content=None):
-    """缓存 DBC 加载[cite: 1]"""
+    """缓存 DBC 加载"""
     try:
         if uploaded_file_content is not None:
             dbc_text = uploaded_file_content.decode('gbk', errors='ignore')
@@ -52,26 +60,26 @@ def load_dbc_engine(uploaded_file_content=None):
 
 def process_mf4(file_content, dbc_path):
     """
-    新增功能：MF4 报文解析逻辑[cite: 1]
+    新增功能：MF4 报文解析逻辑
     """
     if not ASAMMDF_INSTALLED:
-        st.error("请先安装依赖库: pip install asammdf")
+        st.error("后台自动安装 asammdf 失败，请尝试手动运行: pip install asammdf")
         return {}
     
     data_dict = {}
     tmp_mf4 = "temp_log.mf4"
-    # 将内存中的二进制流写入临时文件以供 asammdf 读取[cite: 1]
+    # 将内存中的二进制流写入临时文件以供 asammdf 读取
     with open(tmp_mf4, "wb") as f:
         f.write(file_content)
     
     try:
         mdf = MDF(tmp_mf4)
-        # 提取总线日志，根据 DBC 自动解析所有 CAN 信号[cite: 1]
+        # 提取总线日志，根据 DBC 自动解析所有 CAN 信号
         decoded = mdf.extract_bus_logging(database_files={'CAN': [(dbc_path, 0)]})
         df = decoded.to_dataframe()
         
         for col in df.columns:
-            # 过滤系统列[cite: 1]
+            # 过滤系统列
             if ' ' in col or col.startswith('__'): continue
             
             sig_data = decoded.get(col)
@@ -91,7 +99,7 @@ def process_mf4(file_content, dbc_path):
 
 def process_asc(file_content, db):
     """
-    保留原有功能：ASC 报文解析逻辑（含 J1939 ID 模糊匹配）[cite: 1]
+    保留原有功能：ASC 报文解析逻辑（含 J1939 ID 模糊匹配）
     """
     data_dict = {}
     frame_re = re.compile(
@@ -116,7 +124,7 @@ def process_asc(file_content, db):
                 hex_data = m.group('data').strip().replace(' ', '')
                 raw_payload = bytearray.fromhex(hex_data)
                 
-                # ID 模糊匹配逻辑[cite: 1]
+                # ID 模糊匹配逻辑
                 msg = None
                 for search_id in [raw_id, raw_id & 0x1FFFFFFF, raw_id & 0x00FFFFFF]:
                     try:
@@ -151,18 +159,22 @@ def process_asc(file_content, db):
 
 st.title("🚗 HVFAN 移动端分析系统")
 
+# 侧边栏：如果自动安装仍失败，将异常原因打印在侧边栏便于排查
 with st.sidebar:
     st.header("⚙️ 协议库配置")
+    if not ASAMMDF_INSTALLED:
+        st.error("⚠️ asammdf 依赖库加载失败，请检查 C++ 运行库环境。")
+        
     uploaded_dbc = st.file_uploader("更新 DBC 文件", type=None, key="mobile_dbc_uploader")
     
-    # 持久化 DBC 路径供 MF4 解析器读取[cite: 1]
+    # 持久化 DBC 路径供 MF4 解析器读取
     current_dbc_path = DBC_FILENAME
     if uploaded_dbc:
         with open("temp_proto.dbc", "wb") as f:
             f.write(uploaded_dbc.getvalue())
         current_dbc_path = "temp_proto.dbc"
 
-# 加载协议引擎[cite: 1]
+# 加载协议引擎
 dbc_bytes = uploaded_dbc.read() if uploaded_dbc else None
 db = load_dbc_engine(dbc_bytes)
 
@@ -170,7 +182,7 @@ if not db:
     st.warning("⚠️ 协议库未就绪。请确认侧边栏 DBC 状态。")
     st.stop()
 
-# 报文上传：新增支持 .mf4 / .mdf 后缀[cite: 1]
+# 报文上传：新增支持 .mf4 / .mdf 后缀
 uploaded_file = st.file_uploader(
     "📂 上传报文 (支持 .asc / .mf4 / .txt)", 
     type=None, 
@@ -178,14 +190,14 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file is not None:
-    # 状态持久化，避免切换应用时数据丢失[cite: 1]
+    # 状态持久化，避免切换应用时数据丢失
     file_key = f"cache_{uploaded_file.name}_{uploaded_file.size}"
     if 'data_cache' not in st.session_state or st.session_state.get('current_file_id') != file_key:
         with st.spinner('⏳ 正在解析大规模报文...'):
             suffix = uploaded_file.name.split('.')[-1].lower()
             content = uploaded_file.read()
             
-            # 自动识别格式并分流[cite: 1]
+            # 自动识别格式并分流
             if suffix in ['mf4', 'mdf']:
                 st.session_state.data_cache = process_mf4(content, current_dbc_path)
             else:
@@ -214,7 +226,7 @@ if uploaded_file is not None:
                 d = full_data[name]
                 x, y = d['x'], d['y']
                 
-                # 移动端性能优化：抽稀逻辑[cite: 1]
+                # 移动端性能优化：抽稀逻辑
                 if len(x) > 15000:
                     step = len(x) // 15000
                     x, y = x[::step], y[::step]
@@ -226,7 +238,7 @@ if uploaded_file is not None:
                     "y": y
                 })
 
-            # Plotly 渲染引擎：保留同步缩放与测量功能[cite: 1]
+            # Plotly 渲染引擎：保留同步缩放与测量功能
             js_code = f"""
             <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
             <div id="chart-box"></div>
